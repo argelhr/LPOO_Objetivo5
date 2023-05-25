@@ -77,7 +77,7 @@ public class FilmeDAO extends BaseDAO {
     }
 
     public static Filme selectFilmeByID(long id) {
-        final String sql = "SELECT * FROM filme WHERE cod_filme = ?";
+        final String sql = "SELECT * FROM filme WHERE cod_filme = ? and situacao is true";
         try (Connection connection = conexao();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)
         ) {
@@ -96,7 +96,7 @@ public class FilmeDAO extends BaseDAO {
     }
 
     public static boolean alteraFilme(Filme filme) {
-        final String sql = "UPDATE filme set titulo = ?, duracao = ? where cod_filme = ?";
+        final String sql = "UPDATE filme set titulo = ?, duracao = ? where cod_filme = ? and situacao is true";
         try (
                 Connection connection = conexao();
                 PreparedStatement preparedStatement = connection.prepareStatement(sql)
@@ -114,7 +114,7 @@ public class FilmeDAO extends BaseDAO {
 
     }
     public static boolean softdelete(long id){
-        final String sql = "UPDATE filme set situacao = false where cod_filme = ?";
+        final String sql = "UPDATE filme set situacao = false where cod_filme = ? and situacao is true";
         try(
                 Connection connection = BaseDAO.conexao();
                 PreparedStatement preparedStatement = connection.prepareStatement(sql);
